@@ -2,13 +2,14 @@
 
 import { useCallback, useRef, useState } from "react";
 
-export default function UploadScreen({ onFile }) {
+export default function UploadScreen({ onFile, converting, error: externalError }) {
   const inputRef = useRef(null);
   const [dragOver, setDragOver] = useState(false);
   const [error, setError] = useState("");
 
   const handleFiles = useCallback(
     (fileList) => {
+      if (converting) return;
       const file = fileList?.[0];
       if (!file) return;
       const name = file.name.toLowerCase();
@@ -50,7 +51,7 @@ export default function UploadScreen({ onFile }) {
             marginBottom: 10,
           }}
         >
-          Bước 1 / 4
+          Bước 1 / 3
         </div>
         <h1
           style={{
@@ -79,11 +80,11 @@ export default function UploadScreen({ onFile }) {
           setDragOver(false);
           handleFiles(e.dataTransfer.files);
         }}
-        onClick={() => inputRef.current?.click()}
+        onClick={() => !converting && inputRef.current?.click()}
         role="button"
         tabIndex={0}
         onKeyDown={(e) => {
-          if (e.key === "Enter" || e.key === " ") inputRef.current?.click();
+          if (!converting && (e.key === "Enter" || e.key === " ")) inputRef.current?.click();
         }}
         style={{
           border: `2px dashed ${dragOver ? "var(--accent)" : "var(--line)"}`,
@@ -91,7 +92,8 @@ export default function UploadScreen({ onFile }) {
           background: dragOver ? "var(--accent-soft)" : "var(--paper-card)",
           padding: "56px 24px",
           textAlign: "center",
-          cursor: "pointer",
+          cursor: converting ? "default" : "pointer",
+          opacity: converting ? 0.7 : 1,
           transition: "border-color 120ms ease, background 120ms ease",
         }}
       >
@@ -100,18 +102,19 @@ export default function UploadScreen({ onFile }) {
           type="file"
           accept=".pdf,.docx"
           hidden
+          disabled={converting}
           onChange={(e) => handleFiles(e.target.files)}
         />
         <DocIcon />
         <div style={{ marginTop: 14, fontSize: 15, color: "var(--ink)", fontWeight: 500 }}>
-          Kéo thả file vào đây, hoặc bấm để chọn
+          {converting ? "Đang chuyển file Word sang PDF…" : "Kéo thả file vào đây, hoặc bấm để chọn"}
         </div>
         <div style={{ marginTop: 6, fontSize: 13, color: "var(--ink-soft)" }}>
-          .pdf · .docx — tối đa ~30MB
+          {converting ? "Vui lòng đợi trong giây lát" : ".pdf · .docx — tối đa ~30MB"}
         </div>
       </div>
 
-      {error && (
+      {(error || externalError) && (
         <div
           style={{
             marginTop: 16,
@@ -122,7 +125,7 @@ export default function UploadScreen({ onFile }) {
             fontSize: 13,
           }}
         >
-          {error}
+          {error || externalError}
         </div>
       )}
     </div>

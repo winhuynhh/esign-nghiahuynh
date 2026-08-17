@@ -250,8 +250,6 @@ export default function SignWorkspace({ pdfBytes, fileBaseName, onExported }) {
         }
       >
         <SignSidebar
-          profileName={profile.name}
-          onProfileNameChange={handleProfileNameChange}
           signatures={signatures}
           onArmSignature={(sig) => {
             handleArmExistingSignature(sig);

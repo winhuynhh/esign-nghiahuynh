@@ -2,7 +2,6 @@
 
 const STEPS = [
   { id: "upload", label: "Tải tài liệu" },
-  { id: "edit", label: "Chỉnh sửa" },
   { id: "sign", label: "Ký & Đặt chữ ký" },
   { id: "done", label: "Xuất PDF" },
 ];

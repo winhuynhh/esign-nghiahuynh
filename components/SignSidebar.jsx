@@ -1,8 +1,6 @@
 "use client";
 
 export default function SignSidebar({
-  profileName,
-  onProfileNameChange,
   signatures,
   onArmSignature,
   onNewSignature,
@@ -39,25 +37,6 @@ export default function SignSidebar({
           </button>
         </div>
       )}
-
-      <Section title="Người ký">
-        <input
-          type="text"
-          value={profileName}
-          onChange={(e) => onProfileNameChange(e.target.value)}
-          placeholder="Tên của bạn"
-          style={{
-            width: "100%",
-            padding: "9px 10px",
-            borderRadius: 8,
-            border: "1px solid var(--line)",
-            fontSize: 13,
-          }}
-        />
-        <p style={{ fontSize: 11.5, color: "var(--ink-soft)", margin: "6px 0 0" }}>
-          Dùng để tự động điền "Digitally signed by" khi đặt chữ ký.
-        </p>
-      </Section>
 
       <Section title="Thư viện chữ ký">
         <p style={{ fontSize: 11.5, color: "var(--ink-soft)", margin: "0 0 10px" }}>
