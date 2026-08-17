@@ -1,0 +1,30 @@
+{
+  "name": "esign-app",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@pdf-lib/fontkit": "^1.1.1",
+    "date-fns": "3.6.0",
+    "html2canvas": "1.4.1",
+    "jspdf": "2.5.1",
+    "mammoth": "1.8.0",
+    "next": "14.2.35",
+    "pdf-lib": "1.17.1",
+    "pdfjs-dist": "3.11.174",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "react-rnd": "10.4.11",
+    "react-signature-canvas": "1.0.6",
+    "uuid": "9.0.1"
+  },
+  "devDependencies": {
+    "eslint": "8.57.0",
+    "eslint-config-next": "14.2.35"
+  }
+}
